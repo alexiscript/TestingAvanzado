@@ -1,0 +1,151 @@
+
+<div class="header">
+    <h2>Navegación</h2>
+    <nav>
+        <a href="http://localhost:3000/products">Productos</a>
+        <a href="http://localhost:3000/carts/{{cart}}">Carrito</a>
+        <a href="http://localhost:3000/profile">Perfil</a>
+        <a href="http://localhost:3000/users/logout">Cerrar sesión</a>
+    </nav>
+</div>
+
+<section class="filters">
+    <h2>Filtros</h2>
+    <div class="filter-group">
+        <p>Precio:
+            <a href="http://localhost:3000/products?sort=asc">Ascendente</a>
+            <a href="http://localhost:3000/products?sort=desc">Descendente</a>
+        </p>
+    </div>
+    <div class="filter-group">
+        <p>Disponibilidad:
+            <a href="http://localhost:3000/products?status=true">Productos con stock</a>
+            <a href="http://localhost:3000/products?status=false">Productos sin stock</a>
+        </p>
+    </div>
+    <p class="clear-filters"><a href="http://localhost:3000/products">Limpiar filtros</a></p>
+</section>
+
+<section class="user-info">
+    <h3>Bienvenido {{full_name}}</h3>
+    <p>Rol: {{role}}</p>
+    <a href="/users/logout">Cerrar sesión</a>
+</section>
+
+{{#if hasProducts}}
+<div class="product-container">
+    {{#each products}}
+    <div class="product">
+        <img height="300px" src={{this.thumbnail}} alt="Imagen del producto" />
+        <h3>{{this.title}}</h3>
+        <p>${{this.price}}</p>
+        <p>
+            <a href="http://localhost:3000/products?category={{this.category}}">{{this.category}}</a>
+        </p>
+        <p>
+            <a href="http://localhost:3000/products/{{this.id}}">Ver detalle</a>
+        </p>
+    </div>
+    {{/each}}
+</div>
+{{else}}
+<div class="empty-products">
+    <h2>La lista de productos está vacía</h2>
+</div>
+{{/if}}
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    .header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+    }
+
+    nav {
+        display: flex;
+        gap: 10px;
+    }
+
+    section {
+        margin: 20px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .filters p,
+    .clear-filters {
+        margin: 10px 0;
+    }
+
+    .filter-group a,
+    .clear-filters a {
+        text-decoration: none;
+        color: #3498db;
+        margin-right: 10px;
+    }
+
+    .user-info {
+        text-align: center;
+    }
+
+    .user-info h3 {
+        font-size: 24px;
+        margin: 10px 0;
+    }
+
+    .user-info a {
+        text-decoration: none;
+        color: #3498db;
+    }
+
+    .product-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .product {
+        width: 30%;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .product img {
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .product h3 {
+        margin: 10px 0;
+        font-size: 18px;
+    }
+
+    .product p {
+        margin: 5px 0;
+    }
+
+    .product a {
+        text-decoration: none;
+        color: #3498db;
+    }
+
+    .empty-products {
+        text-align: center;
+        margin-top: 20px;
+        color: #555;
+    }
+</style>
